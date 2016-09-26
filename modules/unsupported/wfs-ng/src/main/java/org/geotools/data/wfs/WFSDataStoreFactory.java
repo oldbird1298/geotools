@@ -128,6 +128,7 @@ public class WFSDataStoreFactory extends WFSDataAccessFactory implements DataSto
         dataStore.setFeatureFactory(CommonFactoryFinder.getFeatureFactory(null));
         dataStore.setDataStoreFactory(this);
         dataStore.setNamespaceURI(config.getNamespaceOverride());
+        dataStore.setEntityResolver(config.getEntityResolver());
 
         return dataStore;
     }

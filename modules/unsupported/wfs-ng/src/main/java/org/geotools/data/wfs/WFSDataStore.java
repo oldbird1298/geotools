@@ -53,6 +53,7 @@ import org.geotools.feature.type.FeatureTypeFactoryImpl;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.FeatureType;
 import org.opengis.feature.type.Name;
+import org.xml.sax.EntityResolver;
 
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.impl.PackedCoordinateSequenceFactory;
@@ -73,6 +74,11 @@ public class WFSDataStore extends ContentDataStore {
 
     protected Map<String, String> configuredStoredQueries =
             new ConcurrentHashMap<String, String>();
+    
+    /**
+     * Entity resolver used for XML parses
+     */
+    protected EntityResolver entityResolver;
 
     public WFSDataStore(final WFSClient client) {
         this.client = client;
@@ -93,6 +99,22 @@ public class WFSDataStore extends ContentDataStore {
     @Override
     public WFSServiceInfo getInfo() {
         return client.getInfo();
+    }
+    
+    /**
+     * Returns the custom entity resolver used for XML parses (might be null, in that case no entity resolver is configured in the parsers)
+     * @return
+     */
+    public EntityResolver getEntityResolver() {
+        return entityResolver;
+    }
+
+    /**
+     * Sets the custom entity resolver used for XML parses (might be null, in that case no entity resolver is configured in the parsers)
+     * @param entityResolver
+     */
+    public void setEntityResolver(EntityResolver entityResolver) {
+        this.entityResolver = entityResolver;
     }
 
     @Override
